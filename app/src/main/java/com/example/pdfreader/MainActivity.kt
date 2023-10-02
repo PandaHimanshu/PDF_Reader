@@ -7,6 +7,7 @@ import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isVisible
 import com.example.pdfreader.databinding.ActivityMainBinding
+import com.github.barteksc.pdfviewer.scroll.DefaultScrollHandle
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding:ActivityMainBinding
@@ -26,7 +27,12 @@ class MainActivity : AppCompatActivity() {
     ){
         uri->
         uri?.let {
-            binding.pdfview.fromUri(it).load()
+            binding.pdfview.fromUri(it)
+                .defaultPage(0)
+                .enableAnnotationRendering(true)
+                .scrollHandle( DefaultScrollHandle(this))
+                .spacing(10)
+                .load()
         }
     }
 }
